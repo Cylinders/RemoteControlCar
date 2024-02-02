@@ -44,27 +44,66 @@ String readRequest;
 int pushSpeed; 
 int steeringAngle; 
 int pwmRecieve; 
-
+int computational[3]; 
 void loop()
 {
-  // Read the data if available in buffer
-  if (radio.available())
-  {
-    char text[32] = {0};
-    radio.read(&text, sizeof(text));
-    readRequest = text;
-  }
-  digitalWrite(pwm,HIGH);		// always set PWM to HIGH
+	  // Read the data if available in buffer
+	  if (radio.available())
+	  {
+	    char text[32] = {0};
+	    radio.read(&text, sizeof(text));
+	    readRequest = text;
+	  }
 
-   		//fast to slow, slow to stop, stop to slow, slow to fast
-   analogWrite(dir,i);
-   delay(500);
-   Serial.println(i);
+	 computational = parser(readRequest); 
+	
+	 if computational[2] {
 
-   
+		digitalWrite(dir, HIGH); 
+		analogWrite(pwm, computational [1]); 
+		// THEN CONTROL THE SERVOO!!!!!!!
+		// STEERING
+	 }
 
-   while(1) continue;        //avoid loop
+	 else {
+
+
+	 }
+	  
+
+
+	  digitalWrite(pwm,HIGH); 
+	   
+
+	   while(1) continue;        //avoid loop
 }
+
+
+
+
+int[] parser(String readReq) {
+
+
+	int dir; 
+
+
+	if (readReq[8] == "H"){
+
+		dir = 1; 	
+
+	}
+	else {
+
+		dir = 0; 
+
+	}
+	return {readReq.substring(0, 3), readReq.substring(4, 7), dir}; 
+
+
+
+
+}
+
 
 // ALl existing modules have been copy and pasted from various websites;
 
