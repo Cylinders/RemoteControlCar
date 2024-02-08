@@ -22,9 +22,6 @@ int joystickInputY = A0;
 int joystickInputB = 0; 
 
 
-int sensorReadX; 
-int sensorReadY; 
-bool sensorReadB; 
 
 
 
@@ -49,16 +46,60 @@ void setup()
 }
 
 String postRequest;  
+String sensorReadX; 
+String sensorReadY; 
+bool sensorReadB; 
+
 
 void loop()
 {
-  sensorReadX = analogRead(joystickInputX)
+  sensorReadX = String(analogRead(joystickInputX))
 
-  sensorReadY = analogRead(joystickInputX)
+  sensorReadY = String(analogRead(joystickInputX))
 
   sensorReadB = digitalRead(joystickInputX)
 
-  postRequest = String(sensorReadX) + ";" + String(sensorReadY) + ";" + String(sensorReadB); 
+  switch (sizeOf(sensorReadX)) { 
+
+	case 1: 
+
+		sensorReadX = "00" + sensorReadX; 
+		break; 
+
+	case 2: 
+
+		sensorReadX = "0" + sensorReadX; 
+		break; 
+
+	case 3: 
+
+		sensorReadX = sensorReadX; 
+
+  }
+
+
+
+
+  switch (sizeOf(sensorReadY)) { 
+
+	case 1: 
+
+		sensorReadY = "00" + sensorReadY; 
+		break; 
+
+	case 2: 
+
+		sensorReadX = "0" + sensorReadY; 
+		break; 
+
+	case 3: 
+
+		sensorReadY = sensorReadY; 
+
+  }
+
+
+  postRequest = sensorReadX + ";" + sensorReadY + ";" + String(sensorReadB); 
 
   //Send message to receiver
   radio.write(&postRequest, postRequest.length());
