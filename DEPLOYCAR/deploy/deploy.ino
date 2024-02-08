@@ -45,6 +45,8 @@ void loop()
     char text[32] = {0};
     radio.read(&text, sizeof(text));
     readRequest = text;
+
+    motorRun(readRequest.substring(0,3), readRequest.substring(7, 9)); 
   }
 
 
