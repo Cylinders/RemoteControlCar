@@ -32,11 +32,11 @@ void setup()
   radio.begin();
 	
 
-  pinmode(joystickInputX, INPUT);y
+  pinMode(joystickInputX, INPUT);
   
-  pinmode(joystickInputY, INPUT);y
+  pinMode(joystickInputY, INPUT);
   
-  pinmode(joystickInputB, INPUT);y
+  pinMode(joystickInputB, INPUT);
   
   //set the address
   radio.openWritingPipe(address);
@@ -53,13 +53,13 @@ bool sensorReadB;
 
 void loop()
 {
-  sensorReadX = String(analogRead(joystickInputX))
+  sensorReadX = String(analogRead(joystickInputX));
 
-  sensorReadY = String(analogRead(joystickInputX))
+  sensorReadY = String(analogRead(joystickInputX));
 
-  sensorReadB = digitalRead(joystickInputX)
+  sensorReadB = digitalRead(joystickInputX);
 
-  switch (sizeOf(sensorReadX)) { 
+  switch (sizeof(sensorReadX)) { 
 
 	case 1: 
 
@@ -80,7 +80,7 @@ void loop()
 
 
 
-  switch (sizeOf(sensorReadY)) { 
+  switch (sizeof(sensorReadY)) { 
 
 	case 1: 
 
@@ -100,9 +100,9 @@ void loop()
 
 
   postRequest = sensorReadX + ";" + sensorReadY + ";" + String(sensorReadB); 
-
+  postRequest = "HELLO HELLO";
   //Send message to receiver
   radio.write(&postRequest, postRequest.length());
-  
+  Serial.println(postRequest);
   delay(100);
 }

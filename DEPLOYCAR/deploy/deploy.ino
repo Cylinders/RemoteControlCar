@@ -35,11 +35,13 @@ void setup()
   
   //Set module as receiver
   radio.startListening();
+  pinMode(LED_BUILTIN, OUTPUT); 
 }
 String readRequest; 
 void loop()
 {
   //Read the data if available in buffer
+  /*
   if (radio.available())
   {
     char text[32] = {0};
@@ -48,6 +50,25 @@ void loop()
 
     motorRun(readRequest.substring(0,3), readRequest.substring(7, 9)); 
   }
+  */
+
+  if (radio.available()) {
+    char text[32] = {0}; 
+    radio.read(&text, sizeof(text)); 
+    
+    
+    if (text == "") {
+        digitalWrite(LED_BUILTIN, HIGH); 
+        Serial.println("Well Shit");     
+    }
+    else {
+      digitalWrite(LED_BUILTIN, LOW); 
+      Serial.println("Oh hellll nah no no"); 
+    }
+  }
+  else 
+    Serial.println("FUCK"); 
+
 
 
 }
