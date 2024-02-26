@@ -40,7 +40,7 @@ void setup()
   
   //set the address
   radio.openWritingPipe(address);
-  
+  radio.setPALevel(RF24_PA_MIN);
   //Set module as transmitter
   radio.stopListening();
 }
@@ -53,6 +53,7 @@ bool sensorReadB;
 
 void loop()
 {
+  /*
   sensorReadX = String(analogRead(joystickInputX));
 
   sensorReadY = String(analogRead(joystickInputX));
@@ -101,8 +102,13 @@ void loop()
 
   postRequest = sensorReadX + ";" + sensorReadY + ";" + String(sensorReadB); 
   postRequest = "HELLO HELLO";
+
+  */
+  const char balls[] = "Anu fat";
+  radio.write(&balls, sizeof(balls));
   //Send message to receiver
+  // 
   radio.write(&postRequest, postRequest.length());
-  Serial.println(postRequest);
-  delay(100);
+  
+  delay(1000);
 }

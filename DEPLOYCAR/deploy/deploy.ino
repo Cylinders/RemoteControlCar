@@ -7,7 +7,7 @@
 
 
 //create an RF24 object
-RF24 radio(9, 8);  // CE, CSN
+RF24 radio(6, 7);  // CE, CSN
 
 //address through which two modules communicate.
 const byte address[6] = "00001";
@@ -32,6 +32,7 @@ void setup()
   
   //set the address
   radio.openReadingPipe(0, address);
+  radio.setPALevel(RF24_PA_MIN);
   
   //Set module as receiver
   radio.startListening();
@@ -55,21 +56,14 @@ void loop()
   if (radio.available()) {
     char text[32] = {0}; 
     radio.read(&text, sizeof(text)); 
+     
     
+      Serial.println(text); 
+      Serial.println("THIS IS THE PACKET");
     
-    if (text == "") {
-        digitalWrite(LED_BUILTIN, HIGH); 
-        Serial.println("Well Shit");     
-    }
-    else {
-      digitalWrite(LED_BUILTIN, LOW); 
-      Serial.println("Oh hellll nah no no"); 
-    }
   }
   else 
-    Serial.println("FUCK"); 
-
-
+    Serial.println("FUCK PACKET GONE BYE BYE "); 
 
 }
 
