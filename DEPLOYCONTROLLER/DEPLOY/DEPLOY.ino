@@ -17,9 +17,9 @@ int joystickInputX = A0;
 
 int joystickInputY = A0;
 
-// The button input should be wired to a digital pin, not an analog pin. 
+// The button input should be wired to a digital pin, not an analog pin.
 
-int joystickInputB = 0; 
+int joystickInputB = 0;
 
 
 
@@ -30,85 +30,84 @@ int joystickInputB = 0;
 void setup()
 {
   radio.begin();
-	
+
 
   pinMode(joystickInputX, INPUT);
-  
+
   pinMode(joystickInputY, INPUT);
-  
+
   pinMode(joystickInputB, INPUT);
-  
+
   //set the address
   radio.openWritingPipe(address);
   radio.setPALevel(RF24_PA_MIN);
+
+  radio.setDataRate(RF24_250KBPS);
   //Set module as transmitter
   radio.stopListening();
 }
 
-String postRequest;  
-String sensorReadX; 
-String sensorReadY; 
-bool sensorReadB; 
+String postRequest;
+String sensorReadX;
+String sensorReadY;
+bool sensorReadB;
 
 
 void loop()
 {
   /*
-  sensorReadX = String(analogRead(joystickInputX));
+    sensorReadX = String(analogRead(joystickInputX));
 
-  sensorReadY = String(analogRead(joystickInputX));
+    sensorReadY = String(analogRead(joystickInputX));
 
-  sensorReadB = digitalRead(joystickInputX);
+    sensorReadB = digitalRead(joystickInputX);
 
-  switch (sizeof(sensorReadX)) { 
+    switch (sizeof(sensorReadX)) {
 
-	case 1: 
+    case 1:
 
-		sensorReadX = "00" + sensorReadX; 
-		break; 
+  	sensorReadX = "00" + sensorReadX;
+  	break;
 
-	case 2: 
+    case 2:
 
-		sensorReadX = "0" + sensorReadX; 
-		break; 
+  	sensorReadX = "0" + sensorReadX;
+  	break;
 
-	case 3: 
+    case 3:
 
-		sensorReadX = sensorReadX; 
+  	sensorReadX = sensorReadX;
 
-  }
-
-
+    }
 
 
-  switch (sizeof(sensorReadY)) { 
-
-	case 1: 
-
-		sensorReadY = "00" + sensorReadY; 
-		break; 
-
-	case 2: 
-
-		sensorReadX = "0" + sensorReadY; 
-		break; 
-
-	case 3: 
-
-		sensorReadY = sensorReadY; 
-
-  }
 
 
-  postRequest = sensorReadX + ";" + sensorReadY + ";" + String(sensorReadB); 
-  postRequest = "HELLO HELLO";
+    switch (sizeof(sensorReadY)) {
+
+    case 1:
+
+  	sensorReadY = "00" + sensorReadY;
+  	break;
+
+    case 2:
+
+  	sensorReadX = "0" + sensorReadY;
+  	break;
+
+    case 3:
+
+  	sensorReadY = sensorReadY;
+
+    }
+
+
+    postRequest = sensorReadX + ";" + sensorReadY + ";" + String(sensorReadB);
+    postRequest = "HELLO HELLO";
 
   */
   const char balls[] = "Anu fat";
   radio.write(&balls, sizeof(balls));
   //Send message to receiver
-  // 
-  radio.write(&postRequest, postRequest.length());
-  
   delay(1000);
 }
