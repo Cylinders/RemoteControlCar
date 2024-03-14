@@ -7,7 +7,7 @@
 
 
 //create an RF24 object
-RF24 radio(6, 7);  // CE, CSN
+RF24 radio(7, 8);  // CE, CSN
 
 //address through which two modules communicate.
 const byte address[6] = "00001";
@@ -35,7 +35,8 @@ void setup()
   radio.setDataRate(RF24_250KBPS);
   //Set module as receiver
   radio.startListening();
-  pinMode(LED_BUILTIN, OUTPUT);
+  
+  pinMode(10, OUTPUT); 
 }
 
 String readRequest;
@@ -56,14 +57,15 @@ void loop()
   if (radio.available()) {
     char text[32] = {0};
     radio.read(&text, sizeof(text));
-    Serial.write(text);
-    Serial.print(text);
+    Serial.println("TEXT:"); 
     Serial.println(text);
 
 
   }
   else
     Serial.println("PACKET NOT AVAILABLE.");
+
+  ; 
 
 }
 /*

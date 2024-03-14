@@ -4,7 +4,7 @@
 #include <RF24.h>
 
 //create an RF24 object
-RF24 radio(9, 8);  // CE, CSN
+RF24 radio(7, 8);  // CE, CSN
 
 //address through which two modules communicate.
 const byte address[6] = "00001";
@@ -15,7 +15,7 @@ const byte address[6] = "00001";
 
 int joystickInputX = A0;
 
-int joystickInputY = A0;
+int joystickInputY = A1;
 
 // The button input should be wired to a digital pin, not an analog pin.
 
@@ -31,7 +31,7 @@ void setup()
 {
   radio.begin();
 
-
+  Serial.begin(9600); 
   pinMode(joystickInputX, INPUT);
 
   pinMode(joystickInputY, INPUT);
@@ -106,7 +106,7 @@ void loop()
     postRequest = "HELLO HELLO";
 
   */
-  const char balls[] = "Anu fat";
+  const char balls[] = "12345";
   radio.write(&balls, sizeof(balls));
   //Send message to receiver
   delay(1000);
